@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THEIA CODE - Master Suite 90 Retos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyberDark: '#040507',
+                        cyberCard: '#090b11',
+                        neonPurple: '#a855f7',
+                        neonBlue: '#06b6d4',
+                        neonGreen: '#10b981',
+                        neonRed: '#f43f5e',
+                        sqlOrange: '#e32400',
+                        netbeansOrange: '#f6921e'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .neon-glow-blue { box-shadow: 0 0 15px rgba(6, 182, 212, 0.12); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #040507; }
+        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-cyberDark text-gray-200 font-sans min-h-screen flex flex-col antialiased">
+
+    <header class="border-b border-zinc-800 bg-cyberCard/90 backdrop-blur p-4 flex flex-col md:flex-row justify-between items-center sticky top-0 z-50 gap-4">
+        <div class="flex items-center gap-3">
+            <span class="text-xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-neonBlue to-neonPurple">
+                THEIA_CODE // MULTI-ENGINE
+            </span>
+            <span class="text-[10px] bg-zinc-900 text-zinc-400 border border-zinc-800 px-2 py-0.5 rounded font-mono">
+                TOTAL_RETOS: 90
+            </span>
+        </div>
+        
+        <div class="flex flex-wrap bg-zinc-950 p-1 rounded-lg border border-zinc-800 gap-1">
+            <button id="tabBtn1" onclick="switchTab(1)" class="px-3 py-1.5 rounded-md text-xs font-bold font-mono transition-colors bg-neonBlue text-black">
+                ☕ CONFIG NETBEANS & ENGINES
+            </button>
+            <button id="tabBtn2" onclick="switchTab(2)" class="px-3 py-1.5 rounded-md text-xs font-bold font-mono transition-colors text-zinc-400 hover:text-white">
+                🐬 MYSQL (30)
+            </button>
+            <button id="tabBtn3" onclick="switchTab(3)" class="px-3 py-1.5 rounded-md text-xs font-bold font-mono transition-colors text-zinc-400 hover:text-white">
+                🗄️ SQL SERVER (30)
+            </button>
+            <button id="tabBtn4" onclick="switchTab(4)" class="px-3 py-1.5 rounded-md text-xs font-bold font-mono transition-colors text-zinc-400 hover:text-white">
+                ☕ JAVA JDBC IN NETBEANS (30)
+            </button>
+        </div>
+
+        <div class="text-xs font-mono text-zinc-500">
+            Erick // <span class="text-neonBlue font-bold">SENATI</span>
+        </div>
+    </header>
+
+    <main class="flex-1 p-4 max-w-[1700px] mx-auto w-full flex flex-col gap-4">
+        
+        <section id="tabContent1" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="bg-cyberCard p-5 rounded-xl border border-zinc-800 flex flex-col gap-2">
+                <h3 class="text-sm font-bold text-neonBlue font-mono">🐬 CONEXIÓN JAVA A MYSQL (XAMPP)</h3>
+                <pre class="bg-black text-emerald-400 p-3 rounded-lg font-mono text-[11px] overflow-x-auto border border-zinc-900">
+// URL estándar puerto 3306
+String url = "jdbc:mysql://localhost:3306/db_shalom";
+Class.forName("com.mysql.cj.jdbc.Driver");
+Connection cn = DriverManager.getConnection(url, "root", "");</pre>
+            </div>
+            <div class="bg-cyberCard p-5 rounded-xl border border-zinc-800 flex flex-col gap-2">
+                <h3 class="text-sm font-bold text-sqlOrange font-mono">🗄️ CONEXIÓN JAVA A PC SQL SERVER (MICROSOFT)</h3>
+                <pre class="bg-black text-emerald-400 p-3 rounded-lg font-mono text-[11px] overflow-x-auto border border-zinc-900">
+// URL estándar puerto 1433 (Usa cifrado deshabilitado para desarrollo local)
+String url = "jdbc:sqlserver://localhost:1433;databaseName=db_tienda;encrypt=false;";
+Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+Connection cn = DriverManager.getConnection(url, "sa", "TuClave123");</pre>
+            </div>
+        </section>
+
+        <section id="arenaRetos" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-4 flex-1">
+            
+            <div class="lg:col-span-1 bg-cyberCard p-4 rounded-xl border border-zinc-800 flex flex-col h-[600px]">
+                <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2" id="txtTituloLista">Lista de Desafíos</h3>
+                <div class="flex-1 overflow-y-auto flex flex-col gap-1 font-mono text-[11px] pr-1" id="listadoDinamico">
+                    </div>
+            </div>
+
+            <div class="lg:col-span-2 flex flex-col gap-4">
+                <div class="bg-cyberCard p-5 rounded-xl border border-zinc-800 neon-glow-blue flex flex-col gap-2.5">
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-1.5">
+                        <h2 class="text-sm font-bold text-white font-mono" id="txtTitleReto">Cargando...</h2>
+                        <span class="text-xs bg-zinc-900 text-neonBlue font-mono px-2 py-0.5 rounded" id="txtBadgeProgreso">RETO 1/30</span>
+                    </div>
+                    <div class="bg-zinc-900/40 p-3 rounded-lg border border-zinc-800/60 text-xs">
+                        <p class="text-zinc-300 mb-2 font-mono text-[11px]" id="txtTeoriaReto">...</p>
+                        <div class="p-2 bg-blue-950/20 border border-blue-900/40 rounded text-blue-300 font-mono">
+                            <span class="font-bold text-neonBlue block">🎯 Instrucción Técnica:</span>
+                            <span id="txtMetaReto">...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-1 bg-black rounded-xl border border-zinc-800 flex flex-col overflow-hidden min-h-[250px]">
+                    <div class="bg-zinc-900/80 px-4 py-2 flex justify-between border-b border-zinc-800 text-xs font-mono text-zinc-500">
+                        <span>THEIA_ENGINE // ENVIRONMENT_ACTIVE</span>
+                        <span id="txtSugerencia" class="text-[10px] bg-zinc-950 px-2 rounded">Sugerencia...</span>
+                    </div>
+                    <div class="flex-1 p-4 font-mono text-xs flex flex-col gap-1.5 overflow-y-auto" id="consoleLogs">
+                        <p class="text-zinc-600">// Consola activa. Digita la solución exacta.</p>
+                    </div>
+                    <div class="p-3 bg-zinc-950 border-t border-zinc-900 flex gap-2">
+                        <span class="text-neonBlue font-mono font-bold self-center">&gt;</span>
+                        <input type="text" id="consoleInput" placeholder="Escribe el comando o código aquí..." class="flex-1 bg-transparent text-neonBlue font-mono text-xs focus:outline-none" onkeypress="handleKey(event)">
+                        <button onclick="evaluateInput()" class="bg-neonBlue text-black font-bold px-4 py-1 rounded text-xs uppercase hover:bg-teal-400">RUN</button>
+                    </div>
+                </div>
+
+                <button id="btnNext" onclick="nextLevel()" disabled class="w-full bg-zinc-800 text-zinc-600 font-bold p-2.5 rounded-xl text-xs uppercase cursor-not-allowed">
+                    🔒 Resuelve el ejercicio actual para avanzar
+                </button>
+            </div>
+
+            <div class="lg:col-span-1 bg-cyberCard p-4 rounded-xl border border-zinc-800 flex flex-col h-[600px]">
+                <h3 class="text-xs font-bold text-zinc-400 uppercase tracking-wider border-b border-zinc-800 pb-2 mb-2 font-mono">🤖 Evaluador de Código</h3>
+                <div id="feedbackContainer" class="flex-1 overflow-y-auto text-xs flex flex-col gap-2 font-mono">
+                    <p class="text-zinc-600 italic text-center py-4">Esperando código en consola...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // MOTOR DE CONTENIDO: 30 MYSQL + 30 SQL SERVER + 30 JAVA = 90 TOTAL
+        const baseRetos = {
+            mysql: [
+                { t: "M1: SELECT Completo", c: "SELECT * FROM envios", m: "Muestra todos los registros de la tabla de envios.", p: "Lectura directa en disco." },
+                { t: "M2: Filtro WHERE", c: "SELECT * FROM envios WHERE destino = 'Ica'", m: "Filtra los envíos que van únicamente a 'Ica'.", p: "Usa comillas simples para texto." },
+                { t: "M3: Filtro Mayor", c: "SELECT * FROM envios WHERE costo > 50", m: "Busca los envíos con costo mayor a 50.", p: "Evaluación matemática de bytes." },
+                { t: "M4: Conector AND", c: "SELECT * FROM envios WHERE destino = 'Ica' AND costo > 20", m: "Busca envíos a Ica con costo mayor a 20.", p: "Ambas condiciones obligatorias." },
+                { t: "M5: Ordenar Registros", c: "SELECT * FROM envios ORDER BY costo DESC", m: "Ordena los envíos por costo de mayor a menor.", p: "Cláusula ORDER BY con DESC." },
+                { t: "M6: Columnas Selectas", c: "SELECT id_envio, destino FROM envios", m: "Trae solo las columnas id_envio y destino.", p: "Optimiza tráfico de red." },
+                { t: "M7: Conector OR", c: "SELECT * FROM envios WHERE destino = 'Ica' OR destino = 'Lima'", m: "Busca envíos dirigidos a Ica o Lima.", p: "Válido si cumple una condición." },
+                { t: "M8: Función COUNT", c: "SELECT COUNT(*) FROM envios", m: "Cuenta cuántos envíos hay en total.", p: "Retorna un único entero de conteo." },
+                { t: "M9: SELECT Mascotas", c: "SELECT * FROM mascotas", m: "Trae todos los datos de la tabla mascotas.", p: "Lectura de registros veterinarios." },
+                { t: "M10: Exclusión", c: "SELECT * FROM mascotas WHERE especie != 'Felino'", m: "Lista mascotas que no sean 'Felino'.", p: "Operador != para omitir registros." },
+                { t: "M11: Patrones LIKE", c: "SELECT * FROM mascotas WHERE nombre LIKE 'C%'", m: "Busca mascotas cuyo nombre empiece con 'C'.", p: "El comodín % reemplaza caracteres." },
+                { t: "M12: Sentencia IN", c: "SELECT * FROM mascotas WHERE especie IN ('Canino', 'Felino')", m: "Mascotas cuya especie sea Canino o Felino usando IN.", p: "Agrupa evaluaciones de igualdad." },
+                { t: "M13: INSERT INTO", c: "INSERT INTO mascotas (nombre, especie) VALUES ('Zeus', 'Canino')", m: "Inserta una mascota llamada Zeus de especie Canino.", p: "Escritura física de tuplas." },
+                { t: "M14: UPDATE Registro", c: "UPDATE mascotas SET especie = 'Exótico' WHERE nombre = 'Luna'", m: "Cambia la especie a 'Exótico' de la mascota 'Luna'.", p: "Modificación permanente en disco." },
+                { t: "M15: DELETE Fila", c: "DELETE FROM mascotas WHERE id_mascota = 5", m: "Elimina de la tabla la mascota con id_mascota 5.", p: "Borrado físico. Usa WHERE siempre." },
+                { t: "M16: LIMIT de Filas", c: "SELECT * FROM mascotas LIMIT 2", m: "Trae todas las mascotas pero limita el reporte a 2 filas.", p: "Corta el flujo de registros." },
+                { t: "M17: Ver Platillos", c: "SELECT * FROM platillos", m: "Muestra todos los registros de platillos.", p: "Lectura del menú de cocina." },
+                { t: "M18: Función SUM", c: "SELECT SUM(precio) FROM platillos", m: "Suma los precios de la tabla platillos.", p: "Suma total de columnas numéricas." },
+                { t: "M19: Función AVG", c: "SELECT AVG(precio) FROM platillos", m: "Saca el precio promedio de los platillos.", p: "Media aritmética en el motor." },
+                { t: "M20: GROUP BY Básico", c: "SELECT categoria, COUNT(*) FROM platillos GROUP BY categoria", m: "Agrupa por categoria y cuenta cuántos platillos hay.", p: "Agrupación para métricas." },
+                { t: "M21: BETWEEN Rango", c: "SELECT * FROM platillos WHERE precio BETWEEN 15 AND 40", m: "Busca platillos con precio entre 15 y 40 soles.", p: "Filtro inclusivo de rangos." },
+                { t: "M22: Uso de Alias", c: "SELECT nombre AS Plato FROM platillos", m: "Selecciona el nombre asignándole el alias 'Plato'.", p: "Renombrado lógico temporal." },
+                { t: "M23: INSERT Platillo", c: "INSERT INTO platillos (nombre, precio) VALUES ('Ceviche', 30)", m: "Inserta un plato llamado Ceviche con precio 30.", p: "Agrega datos al menú." },
+                { t: "M24: UPDATE Precios", c: "UPDATE platillos SET precio = 35 WHERE id_platillo = 2", m: "Actualiza el precio a 35 del platillo con id_platillo 2.", p: "Mantenimiento del catálogo." },
+                { t: "M25: Ver Productos", c: "SELECT * FROM productos", m: "Trae todos los productos de la tienda.", p: "Inventario de almacén." },
+                { t: "M26: INNER JOIN Cruce", c: "SELECT * FROM pedidos INNER JOIN usuarios ON pedidos.id_usuario = usuarios.id_usuario", m: "Une pedidos y usuarios por la columna id_usuario.", p: "Enlace clásico de llaves relacionales." },
+                { t: "M27: LEFT JOIN Primario", c: "SELECT * FROM usuarios LEFT JOIN pedidos ON usuarios.id_usuario = pedidos.id_usuario", m: "Une usuarios y pedidos con LEFT JOIN.", p: "Prioriza registros de la izquierda." },
+                { t: "M28: IS NULL Filtro", c: "SELECT * FROM usuarios LEFT JOIN pedidos ON usuarios.id_usuario = pedidos.id_usuario WHERE id_pedido IS NULL", m: "Busca usuarios con id_pedido nulo.", p: "Detecta valores vacíos." },
+                { t: "M29: CREATE TABLE", c: "CREATE TABLE marcas (id INT, nombre VARCHAR(30))", m: "Crea una tabla llamada marcas con id INT y nombre VARCHAR(30).", p: "Comando DDL estructural." },
+                { t: "M30: Consolidado Final", c: "SELECT usuarios.nombre, SUM(total) FROM pedidos INNER JOIN usuarios ON pedidos.id_usuario = usuarios.id_usuario GROUP BY usuarios.nombre", m: "Selecciona nombre de usuario y suma sus totales de pedidos agrupado por nombre.", p: "Dominio absoluto de MySQL." }
+            ],
+            sqlserver: [
+                { t: "S1: SELECT Corporativo", c: "SELECT * FROM clientes", m: "Muestra todos los registros de la tabla clientes en SQL Server.", p: "Sintaxis ANSI estándar en T-SQL." },
+                { t: "S2: TOP de Filas", c: "SELECT TOP 3 * FROM clientes", m: "Selecciona únicamente los primeros 3 clientes de la tabla.", p: "Sustituto de LIMIT exclusivo de SQL Server." },
+                { t: "S3: WHERE Filtro", c: "SELECT * FROM clientes WHERE ciudad = 'Ica'", m: "Filtra clientes cuya ciudad sea 'Ica'.", p: "Filtrado indexado empresarial." },
+                { t: "S4: TOP con Orden", c: "SELECT TOP 1 * FROM clientes ORDER BY saldo DESC", m: "Selecciona al cliente con el saldo más alto de la tabla.", p: "Combina TOP con ORDER BY DESC." },
+                { t: "S5: Creación IDENTITY", c: "CREATE TABLE roles (id INT IDENTITY(1,1), nombre VARCHAR(20))", m: "Crea una tabla roles donde el id sea autoincremental usando IDENTITY(1,1).", p: "En SQL Server no se usa auto_increment, se usa IDENTITY." },
+                { t: "S6: Insertar Datos", c: "INSERT INTO roles (nombre) VALUES ('Admin')", m: "Inserta el rol 'Admin' en la tabla recién creada.", p: "El campo IDENTITY se llena solo." },
+                { t: "S7: Variables T-SQL", c: "DECLARE @id INT", m: "Declara una variable local llamada id de tipo entero en SQL Server.", p: "Sintaxis procedimental de Microsoft con @." },
+                { t: "S8: Filtrar por Fechas", c: "SELECT * FROM facturas WHERE YEAR(fecha) = 2026", m: "Busca las facturas emitidas en el año 2026 usando YEAR(fecha).", p: "Función de extracción de fechas." },
+                { t: "S9: Concat T-SQL", c: "SELECT nombre + ' ' + apellido AS Completo FROM clientes", m: "Concatena nombre y apellido usando el operador + con un alias.", p: "SQL Server permite concatenar con +." },
+                { t: "S10: LEN de Cadenas", c: "SELECT * FROM clientes WHERE LEN(telefono) = 9", m: "Busca clientes cuyo teléfono tenga exactamente 9 caracteres usando LEN.", p: "LEN mide la longitud del texto." },
+                { t: "S11: Ver Productos", c: "SELECT * FROM inventario", m: "Muestra todo de la tabla inventario.", p: "Lectura corporativa." },
+                { t: "S12: Filtro Stock", c: "SELECT * FROM inventario WHERE stock <= 5", m: "Busca productos con stock menor o igual a 5.", p: "Alerta de reabastecimiento." },
+                { t: "S13: UPDATE con Operador", c: "UPDATE inventario SET stock = stock + 10 WHERE id = 1", m: "Súmale 10 unidades al stock del producto con id = 1.", p: "Modificación con cálculo directo." },
+                { t: "S14: DELETE Seguro", c: "DELETE FROM inventario WHERE estado = 'Descontinuado'", m: "Elimina productos cuyo estado sea 'Descontinuado'.", p: "Limpieza de tablas." },
+                { t: "S15: LIKE Avanzado", c: "SELECT * FROM inventario WHERE codigo LIKE 'TEC[-]%'", m: "Busca códigos que empiecen con 'TEC-'.", p: "Omitir caracteres especiales con corchetes." },
+                { t: "S16: GROUP BY Almacén", c: "SELECT proveedor, SUM(stock) FROM inventario GROUP BY proveedor", m: "Suma el stock agrupando por proveedor.", p: "Reporte de capacidad." },
+                { t: "S17: HAVING Filtro", c: "SELECT proveedor, SUM(stock) FROM inventario GROUP BY proveedor HAVING SUM(stock) > 100", m: "Filtra grupos cuyo stock sumado sea mayor a 100 con HAVING.", p: "HAVING filtra grupos, WHERE filtra filas." },
+                { t: "S18: UPPER Case", c: "SELECT UPPER(nombre) FROM inventario", m: "Trae los nombres de los productos transformados a mayúsculas con UPPER.", p: "Formateo de texto en servidor." },
+                { t: "S19: GETDATE Función", c: "SELECT GETDATE()", m: "Escribe la consulta para obtener la fecha y hora actual del servidor SQL Server.", p: "GETDATE() es el homólogo de NOW() de MySQL." },
+                { t: "S20: SUBSTRING", c: "SELECT SUBSTRING(codigo, 1, 3) FROM inventario", m: "Extrae los 3 primeros caracteres de la columna codigo.", p: "Corte de cadenas indexadas." },
+                { t: "S21: INNER JOIN Ventas", c: "SELECT * FROM ventas INNER JOIN clientes ON ventas.id_cliente = clientes.id_cliente", m: "Une ventas con clientes por su columna común.", p: "Cruce relacional clásico." },
+                { t: "S22: LEFT JOIN Corporativo", c: "SELECT * FROM clientes LEFT JOIN ventas ON clientes.id_cliente = ventas.id_cliente", m: "Aplica LEFT JOIN entre clientes y ventas.", p: "Saber quién no ha comprado." },
+                { t: "S23: ISNULL Reemplazo", c: "SELECT id_venta, ISNULL(total, 0) FROM ventas", m: "Muestra id_venta y si total es nulo conviértelo en 0 usando ISNULL(total, 0).", p: "Evita nulos en la UI de Java." },
+                { t: "S24: RIGHT JOIN", c: "SELECT * FROM clientes RIGHT JOIN ventas ON clientes.id_cliente = ventas.id_cliente", m: "Aplica un RIGHT JOIN entre clientes y ventas.", p: "Prioriza registros de la derecha." },
+                { t: "S25: COUNT DISTINCT", c: "SELECT COUNT(DISTINCT ciudad) FROM clientes", m: "Cuenta cuántas ciudades diferentes existen sin repetir usando DISTINCT.", p: "Evita duplicados en el conteo." },
+                { t: "S26: Truncar Tabla", c: "TRUNCATE TABLE registros_temporales", m: "Vacía por completo la tabla registros_temporales de forma rápida sin usar DELETE.", p: "TRUNCATE reinicia índices y es veloz." },
+                { t: "S27: DROP TABLE", c: "DROP TABLE marcas_antiguas", m: "Elimina la estructura completa de la tabla marcas_antiguas de la BD.", p: "Borrado de entidades DDL." },
+                { t: "S28: CHECK Constraint", c: "ALTER TABLE inventario ADD CONSTRAINT chk_precio CHECK (precio > 0)", m: "Agrega una restricción CHECK para que el precio siempre sea mayor a 0.", p: "Regla de integridad del negocio." },
+                { t: "S29: VIEW Creación", c: "CREATE VIEW v_stock_bajo AS SELECT * FROM inventario WHERE stock < 3", m: "Crea una vista llamada v_stock_bajo para productos con stock menor a 3.", p: "Consultas pre-compiladas virtuales." },
+                { t: "S30: Master SQL Server", c: "SELECT clientes.nombre, AVG(total) FROM ventas INNER JOIN clientes ON ventas.id_cliente = clientes.id_cliente GROUP BY clientes.nombre", m: "Saca el promedio de compras de cada cliente uniendo tablas y agrupando por nombre.", p: "Felicidades, nivel DBA en SQL Server." }
+            ],
+            java: [
+                { t: "J1: Instanciar Connection", c: "Connection cn = null;", m: "Declara una variable llamada 'cn' de tipo 'Connection' inicializada en null.", p: "Importa java.sql.Connection." },
+                { t: "J2: Cargar Driver", c: "Class.forName(\"com.mysql.cj.jdbc.Driver\");", m: "Escribe la línea de código para cargar el Driver de MySQL en memoria.", p: "Usa el método forName de Class." },
+                { t: "J3: DriverManager Link", c: "cn = DriverManager.getConnection(url, user, pass);", m: "Asigna a cn la conexión usando DriverManager.getConnection con las variables url, user y pass.", p: "Abre el puente de comunicación de red." },
+                { t: "J4: Cerrar Conexión", c: "cn.close();", m: "Escribe el comando para cerrar la conexión de la variable cn.", p: "Libera memoria RAM en el servidor." },
+                { t: "J5: Instanciar Statement", c: "Statement st = cn.createStatement();", m: "Crea un objeto Statement llamado 'st' desde la conexión 'cn'.", p: "Sirve para sentencias SQL estáticas." },
+                { t: "J6: executeQuery Lectura", c: "ResultSet rs = st.executeQuery(sql);", m: "Ejecuta la lectura SQL guardando el resultado en un ResultSet llamado 'rs'.", p: "Se usa executeQuery para SELECTs." },
+                { t: "J7: Recorrer ResultSet", c: "while(rs.next()) { }", m: "Escribe la estructura del bucle while para recorrer las filas de un ResultSet 'rs'.", p: "rs.next() avanza el puntero de fila." },
+                { t: "J8: Extraer String", c: "String nom = rs.getString(\"nombre\");", m: "Lee la columna de texto 'nombre' del ResultSet rs y guardala en una variable String 'nom'.", p: "Método getString del cursor." },
+                { t: "J9: Extraer Entero", c: "int id = rs.getInt(\"id\");", m: "Lee el campo entero 'id' de rs y almacénalo en una variable int 'id'.", p: "Método getInt del cursor." },
+                { t: "J10: PreparedStatement", c: "PreparedStatement ps = cn.prepareStatement(sql);", m: "Prepara una consulta segura creando un PreparedStatement 'ps' desde 'cn' con el String 'sql'.", p: "Esencial para consultas dinámicas y seguras." },
+                { t: "J11: Inyectar String", c: "ps.setString(1, dest);", m: "Asigna la variable 'dest' en el primer parámetro de tu PreparedStatement 'ps'.", p: "Reemplaza el primer signo de interrogación ?." },
+                { t: "J12: Inyectar Entero", c: "ps.setInt(2, cant);", m: "Asigna la variable int 'cant' en el segundo parámetro de tu PreparedStatement 'ps'.", p: "Mapeo del segundo ? numérico." },
+                { t: "J13: executeUpdate DML", c: "int filas = ps.executeUpdate();", m: "Ejecuta el PreparedStatement 'ps' para un INSERT/UPDATE y guarda las filas afectadas en un int 'filas'.", p: "executeUpdate retorna el conteo de filas alteradas." },
+                { t: "J14: Bloque Try-Catch", c: "try { } catch(SQLException e) { }", m: "Escribe un bloque try-catch básico capturando la excepción 'SQLException e'.", p: "Manejo obligatorio de errores relacionales." },
+                { t: "J15: Validar Filas Affect", c: "if(filas > 0) { }", m: "Evalúa con un IF si la variable 'filas' es mayor a 0 para verificar éxito.", p: "Control lógico del software." },
+                { t: "J16: Extraer Double", c: "double pre = rs.getDouble(\"precio\");", m: "Lee el campo decimal 'precio' de rs y guárdalo en una variable double 'pre'.", p: "Mapeo de datos numéricos flotantes." },
+                { t: "J17: Driver SQL Server", c: "Class.forName(\"com.microsoft.sqlserver.jdbc.SQLServerDriver\");", m: "Carga en memoria el Driver específico para conectar a Microsoft SQL Server.", p: "Librería de persistencia de Microsoft." },
+                { t: "J18: IsClosed Validación", c: "if(cn.isClosed()) { }", m: "Valida con un condicional IF si la conexión 'cn' se encuentra cerrada.", p: "Método de chequeo de estado." },
+                { t: "J19: ClearParameters", c: "ps.clearParameters();", m: "Limpia los parámetros inyectados en el PreparedStatement 'ps' para volver a usarlo.", p: "Optimización de búferes." },
+                { t: "J20: GetDate en Java", c: "Date f = rs.getDate(\"fecha\");", m: "Extrae un campo de tipo fecha de rs y guardalo en una variable Date 'f'.", p: "Importa java.sql.Date." },
+                { t: "J21: DefaultTableModel", c: "DefaultTableModel modelo = new DefaultTableModel();", m: "Instancia un objeto DefaultTableModel llamado 'modelo' para cargar datos en una tabla visual.", p: "Interfaz gráfica Swing en NetBeans." },
+                { t: "J22: Agregar Columna UI", c: "modelo.addColumn(\"ID\");", m: "Agrégale una columna con el título 'ID' al objeto 'modelo'.", p: "Prepara la estructura del JTable." },
+                { t: "J23: Arreglo de Objetos", c: "Object[] fila = new Object[3];", m: "Declara un array de tipo Object de tamaño 3 llamado 'fila' para empaquetar celdas.", p: "Contenedor genérico de columnas." },
+                { t: "J24: Asignar Celda", c: "fila[0] = rs.getInt(1);", m: "Asigna en la posición 0 del array 'fila' el primer campo entero del ResultSet rs.", p: "Indexación base cero." },
+                { t: "J25: Añadir fila al Modelo", c: "modelo.addRow(fila);", m: "Añade el array 'fila' al objeto 'modelo' usando addRow.", p: "Pinta los datos en la grilla visual." },
+                { t: "J26: JTable SetModel", c: "tabla.setModel(modelo);", m: "Vincula el objeto 'modelo' a un componente JTable llamado 'tabla'.", p: "Refresca la pantalla para el usuario." },
+                { t: "J27: Rollback Transacción", c: "cn.rollback();", m: "Ejecuta un rollback en la conexión 'cn' para cancelar los cambios ante un error.", p: "Protección de integridad de datos." },
+                { t: "J28: Commit Confirmar", c: "cn.commit();", m: "Confirma los cambios pendientes en la base de datos llamando al método commit de cn.", p: "Guarda las operaciones de la transacción." },
+                { t: "J29: AutoCommit False", c: "cn.setAutoCommit(false);", m: "Desactiva el auto-guardado automático de cn configurándolo en false.", p: "Paso inicial para transacciones ACID." },
+                { t: "J30: Arquitecto JDBC", c: "ps.executeBatch();", m: "Ejecuta un lote completo de comandos encolados en el PreparedStatement 'ps' usando executeBatch().", p: "🥇 Nivel Senior: Inserciones masivas optimizadas en NetBeans." }
+            ]
+        };
+
+        let motorActivo = "mysql";
+        let indices = { mysql: 0, sqlserver: 0, java: 0 };
+
+        function switchTab(num) {
+            document.getElementById("tabContent1").classList.toggle("hidden", num !== 1);
+            document.getElementById("arenaRetos").classList.toggle("hidden", num === 1);
+            
+            for(let i=1; i<=4; i++) {
+                document.getElementById("tabBtn"+i).className = "px-3 py-1.5 rounded-md text-xs font-bold font-mono transition-colors text-zinc-400 hover:text-white";
+            }
+            document.getElementById("tabBtn"+num).className = "px-3 py-1.5 rounded-md text-xs font-bold font-mono transition-colors bg-neonBlue text-black";
+
+            if(num === 2) motorActivo = "mysql";
+            if(num === 3) motorActivo = "sqlserver";
+            if(num === 4) motorActivo = "java";
+
+            if(num > 1) {
+                document.getElementById("txtTituloLista").innerText = "RETOS " + motorActivo.toUpperCase();
+                renderList();
+                renderChallenge();
+            }
+        }
+
+        function renderList() {
+            const container = document.getElementById("listadoDinamico");
+            container.innerHTML = "";
+            const idx = indices[motorActivo];
+            baseRetos[motorActivo].forEach((ej, index) => {
+                let style = "text-zinc-600 bg-zinc-950/40 border-transparent";
+                if (index === idx) style = "text-neonBlue border-neonBlue/30 bg-zinc-900 border font-bold animate-pulse";
+                else if (index < idx) style = "text-neonGreen border-neonGreen/10 bg-emerald-950/40 border";
+
+                container.innerHTML += `
+                    <div class="p-2 rounded flex justify-between items-center ${style}">
+                        <span class="truncate">${ej.t}</span>
+                    </div>
+                `;
+            });
+        }
+
+        function renderChallenge() {
+            const idx = indices[motorActivo];
+            const step = baseRetos[motorActivo][idx];
+
+            document.getElementById("txtTitleReto").innerText = step.t;
+            document.getElementById("txtBadgeProgreso").innerText = `RETO ${idx + 1} / 30`;
+            document.getElementById("txtTeoriaReto").innerText = step.p;
+            document.getElementById("txtMetaReto").innerText = step.m;
+            document.getElementById("txtSugerencia").innerText = "Sintaxis esperada: " + step.c;
+
+            const btn = document.getElementById("btnNext");
+            btn.disabled = true;
+            btn.className = "w-full bg-zinc-800 text-zinc-600 font-bold p-2.5 rounded-xl text-xs uppercase cursor-not-allowed";
+            btn.innerText = "🔒 Resuelve el ejercicio actual para avanzar";
+        }
+
+        function handleKey(e) { if(e.key === 'Enter') evaluateInput(); }
+
+        function evaluateInput() {
+            const input = document.getElementById("consoleInput").value.trim();
+            const logs = document.getElementById("consoleLogs");
+            const fb = document.getElementById("feedbackContainer");
+            const idx = indices[motorActivo];
+            const step = baseRetos[motorActivo][idx];
+
+            if(!input) return;
+
+            logs.innerHTML += `<p class="text-zinc-400 mt-1">&gt; ${input}</p>`;
+            
+            // Comparar strings limpiando espacios
+            const cleanIn = input.replace(/\s+/g, ' ');
+            const cleanCorrecto = step.c.replace(/\s+/g, ' ');
+
+            // Para que no sea tan sensible a mayúsculas/comillas dobles en Java
+            if (cleanIn.toLowerCase() === cleanCorrecto.toLowerCase() || cleanIn === cleanCorrecto) {
+                logs.innerHTML += `<p class="text-neonGreen">// [SUCCESS]: Entrada validada correctamente.</p>`;
+                fb.innerHTML = `
+                    <div class="p-3 bg-emerald-950/30 border border-neonGreen/30 text-neonGreen rounded-lg">
+                        <b>✓ RETO PASADO:</b><br>Lógica de compilación impecable. El búfer relacional aceptó el script sin advertencias.
+                    </div>
+                `;
+                const btn = document.getElementById("btnNext");
+                btn.disabled = false;
+                btn.className = "w-full bg-gradient-to-r from-neonGreen to-emerald-600 text-black font-bold p-2.5 rounded-xl text-xs uppercase cursor-pointer";
+                btn.innerText = "✨ AVANZAR AL SIGUIENTE PASO";
+            } else {
+                logs.innerHTML += `<p class="text-neonRed">❌ [COMPILATION ERROR]: Código inválido.</p>`;
+                fb.innerHTML = `
+                    <div class="p-3 bg-red-950/30 border border-neonRed/30 text-neonRed rounded-lg">
+                        <b>⚠️ ERROR DE SINTAXIS:</b><br>Asegúrate de escribir el código tal como lo requiere el estándar o guíate de la sugerencia superior. ¡Ojo con las mayúsculas, comillas y puntos y comas!
+                    </div>
+                `;
+            }
+            document.getElementById("consoleInput").value = "";
+            logs.scrollTop = logs.scrollHeight;
+        }
+
+        function nextLevel() {
+            indices[motorActivo]++;
+            if(indices[motorActivo] < 30) {
+                renderList();
+                renderChallenge();
+                document.getElementById("consoleLogs").innerHTML += `<p class="text-neonPurple font-mono mt-1">// → Entorno listo para el reto #${indices[motorActivo] + 1}.</p>`;
+            } else {
+                alert("🎉 ¡FELICITACIONES ERICK! Has pulverizado los 30 niveles de esta sección.");
+                indices[motorActivo] = 0;
+                renderList();
+                renderChallenge();
+            }
+        }
+    </script>
+</body>
+</html>
